@@ -1,3 +1,4 @@
+import 'package:coba/widgets/custom_navbar.dart';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -9,8 +10,9 @@ class DashboardScreen extends StatefulWidget {
 
 class DashboardScreenState extends State<DashboardScreen> {
   bool temaDark = true;
+  int _bottomNavIndex = 0;
 
-  gantiTema() {
+  void gantiTema() {
     setState(() {
       temaDark = !temaDark;
     });
@@ -24,9 +26,16 @@ class DashboardScreenState extends State<DashboardScreen> {
         backgroundColor: temaDark ? Colors.blueGrey : Colors.yellow.shade100,
         centerTitle: true,
         title: Usernameatas(),
-        actions: [Tomboltema()],
       ),
       body: Avatar(),
+      bottomNavigationBar: CustomBottomNavbar(
+        temaDark: temaDark,
+        currentIndex: _bottomNavIndex,
+        onTabChange: (index) {
+          setState(() => _bottomNavIndex = index);
+        },
+        onThemeChange: gantiTema,
+      ),
     );
   }
 
@@ -36,7 +45,9 @@ class DashboardScreenState extends State<DashboardScreen> {
       children: [
         Text(
           'Alif',
-          style: TextStyle(color: temaDark ? Colors.white : Colors.black87, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: temaDark ? Colors.white : Colors.black87,
+              fontWeight: FontWeight.bold),
         ),
         Icon(
           Icons.arrow_drop_down_sharp,
@@ -49,7 +60,7 @@ class DashboardScreenState extends State<DashboardScreen> {
   Column Avatar() {
     return Column(
       children: [
-        Center(),
+        SizedBox(height: 30),
         Stack(
           alignment: Alignment.center,
           children: [
@@ -76,48 +87,97 @@ class DashboardScreenState extends State<DashboardScreen> {
             ),
           ],
         ),
-        SizedBox(height: 15,),
-
-        Column(
-          children: [
-            Text('@ Alif',
-              style: TextStyle(
-                color: temaDark ? Colors.white : Colors.black87,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
+        SizedBox(height: 15),
+        Text(
+          '@ Alif',
+          style: TextStyle(
+            color: temaDark ? Colors.white : Colors.black87,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        SizedBox(height: 15,),
+        SizedBox(height: 15),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('6,99K Followers', style: TextStyle(color: temaDark ? Colors.white : Colors.black87, fontSize: 15,
-              fontWeight: FontWeight.bold,)
+            Text('6,99K Followers',
+                style: TextStyle(
+                    color: temaDark ? Colors.white : Colors.black87,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold)),
+            SizedBox(width: 15),
+            Text('6,9M Likes',
+                style: TextStyle(
+                    color: temaDark ? Colors.white : Colors.black87,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold)),
+            SizedBox(width: 15),
+            Text('69 Following',
+                style: TextStyle(
+                    color: temaDark ? Colors.white : Colors.black87,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold)),
+          ],
+        ),
+        SizedBox(height: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            OutlinedButton(
+              onPressed: () {},
+              style: OutlinedButton.styleFrom(
+                side: BorderSide(color: temaDark ? Colors.white : Colors.black87),
+              ),
+              child: Text(
+                'Edit Profile',
+                style: TextStyle(color: temaDark ? Colors.white : Colors.black87),
+              ),
             ),
-            SizedBox(width: 15,),
-            Text('6,9M Likes', style: TextStyle(color: temaDark ? Colors.white : Colors.black87, fontSize: 15,
-              fontWeight: FontWeight.bold,)
+            SizedBox(width: 10),
+            OutlinedButton(
+              onPressed: () {},
+              style: OutlinedButton.styleFrom(
+                side: BorderSide(color: temaDark ? Colors.white : Colors.black87),
+              ),
+              child: Text(
+                'Share Profile',
+                style: TextStyle(color: temaDark ? Colors.white : Colors.black87),
+              ),
             ),
-            SizedBox(width: 15,),
-            Text('69 Following', style: TextStyle(color: temaDark ? Colors.white : Colors.black87, fontSize: 15,
-            fontWeight: FontWeight.bold,)
+            SizedBox(width: 10),
+            OutlinedButton(
+              onPressed: () {},
+              style: OutlinedButton.styleFrom(
+                side: BorderSide(color: temaDark ? Colors.white : Colors.black87),
+              ),
+              child: Icon(Icons.person_add_alt_sharp,
+                  color: temaDark ? Colors.white : Colors.black87),
             ),
           ],
         ),
+        SizedBox(height: 10),
+        OutlinedButton(
+          onPressed: () {},
+          style: OutlinedButton.styleFrom(
+            side: BorderSide(color: temaDark ? Colors.white : Colors.black87),
+          ),
+          child: Text(
+            '+ Add bio',
+            style: TextStyle(color: temaDark ? Colors.white : Colors.black87),
+          ),
+        ),
+        SizedBox(height: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Icon(Icons.grid_on, color: temaDark ? Colors.white : Colors.black87),
+            Icon(Icons.lock, color: temaDark ? Colors.white : Colors.black87),
+            Icon(Icons.cached, color: temaDark ? Colors.white : Colors.black87),
+            Icon(Icons.bookmark_add, color: temaDark ? Colors.white : Colors.black87),
+            Icon(Icons.favorite_rounded, color: temaDark ? Colors.white : Colors.black87),
+          ],
+        ),
       ],
-    );
-  }
-
-  ElevatedButton Tomboltema() {
-    return ElevatedButton(
-      onPressed: gantiTema,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: temaDark ? Colors.black : Colors.orange,
-        foregroundColor: Colors.white,
-      ),
-      child: Icon(temaDark ? Icons.dark_mode : Icons.light_mode),
     );
   }
 }
