@@ -14,6 +14,12 @@ class Textfielduser extends StatefulWidget {
 class _TextfielduserState extends State<Textfielduser> {
   bool passhide = true;
 
+  showhide(){
+    setState(() {
+      passhide = !passhide;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -28,10 +34,7 @@ class _TextfielduserState extends State<Textfielduser> {
           icon: Icon(
             passhide ? Icons.visibility_off : Icons.visibility,
           ),
-          onPressed: () {
-            setState(() {
-              passhide = !passhide;
-            });
+          onPressed: () { showhide();
           },
         )
           : null,
